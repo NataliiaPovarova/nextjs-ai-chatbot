@@ -18,8 +18,12 @@ jobs:
         with:
           node-version: '20'
 
-      - run: npm ci
+      - name: Install release-tool dependencies
+        working-directory: release-tool
+        run: npm ci --legacy-peer-deps
 
-      - run: npx semantic-release
+      - name: Run semantic-release
+        working-directory: release-tool
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
